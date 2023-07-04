@@ -15,12 +15,13 @@ import com.example.workouttracker.workout.model.Workout;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-    private ArrayList<Workout> WorkOutList;
+    private List<Workout> WorkOutList;
     private Context context;
 
-    public RecyclerAdapter(ArrayList<Workout> workOutList, Context context) {
+    public RecyclerAdapter(List<Workout> workOutList, Context context) {
         WorkOutList = workOutList;
         this.context = context;
     }
