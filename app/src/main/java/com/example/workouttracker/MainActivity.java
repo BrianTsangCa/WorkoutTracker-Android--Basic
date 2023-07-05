@@ -21,23 +21,17 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
-    ActivityMainBinding binding;
-    RecyclerView.LayoutManager layoutManager;
-    RecyclerView.Adapter adapter;
     UserDatabase udb;
     private List<Workout> WorkOutList=new ArrayList<>();
-    private List<User> userList=new ArrayList<>();
-    private List<CalorieBurned> calorieBurned=new ArrayList<>();
+    //    private List<CalorieBurned> calorieBurned=new ArrayList<>();
+    RecyclerView workoutRecyclerview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityMainBinding.inflate(getLayoutInflater());
-        View view=binding.getRoot();
-        setContentView(view);
-        layoutManager=new LinearLayoutManager(this);
+        setContentView(R.layout.activity_main);
+        workoutRecyclerview=findViewById(R.id.workout_recyclerview);
         fetchWorkout();
-        fetchUser();
         udb= Room.databaseBuilder
                 (getApplicationContext(),UserDatabase.class,"user.db").build();
         UserDao userDao=udb.userDao();
@@ -47,30 +41,19 @@ public class MainActivity extends AppCompatActivity {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                userDao.insertUsersfromList(userList);
-                List<User> AllDBStudents=userDao.GetAllUsers();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-//                        binding.listViewUsers
-//                                .setAdapter(new UserAdapter(AllDBStudents));
+
                     }
                 });
             }
         });
-
-
-
-
-        adapter=new RecyclerAdapter(WorkOutList,this);
-        binding.workoutRecyclerview.setLayoutManager(layoutManager);
-        binding.workoutRecyclerview.setAdapter(adapter);
+        workoutRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+        workoutRecyclerview.setAdapter(new RecyclerAdapter(WorkOutList,this));
 
     }
     private void fetchWorkout(){
         WorkOutList.add(new Workout("Ski","Ski","300"));
-    }
-    private void fetchUser(){
-        userList.add(new User("email","userName",100));
     }
 }
