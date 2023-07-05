@@ -1,4 +1,4 @@
-package com.example.workouttracker;
+package com.example.workouttracker.LoginAndRegisterAcitivties;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.workouttracker.databinding.ActivityLoginPageBinding;
+import com.example.workouttracker.R;
 
 public class LoginOrRegisterActivity extends AppCompatActivity {
     Button btn_register_main,btn_login_main;
@@ -21,7 +21,7 @@ public class LoginOrRegisterActivity extends AppCompatActivity {
         btn_register_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginOrRegisterActivity.this, Register_Page_Activity.class));
+                startActivity(new Intent(LoginOrRegisterActivity.this, RegisterPageActivity.class));
                 finish();
             }
         });

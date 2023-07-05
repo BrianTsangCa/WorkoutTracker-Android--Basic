@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".LoginPageActivity">
+    tools:context=".LoginAndRegisterAcitivties.LoginPageActivity">
 
     <TextView
         android:id="@+id/txtview_email2"
@@ -35,16 +35,17 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="numberPassword"
-        app:layout_constraintBottom_toTopOf="@+id/btn_register2"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btn_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtview_password2" />
 
     <Button
-        android:id="@+id/btn_register2"
+        android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Register"
+        android:text="@string/Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,6 +57,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/txtview_password2"
         app:layout_constraintStart_toStartOf="@+id/txtview_password2"
         app:layout_constraintTop_toBottomOf="@+id/txtview_email2" />
