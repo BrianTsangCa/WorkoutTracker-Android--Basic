@@ -8,9 +8,6 @@ android {
     namespace 'com.example.workouttracker'
     compileSdk 33
 
-    buildFeatures{
-        viewBinding true
-    }
     defaultConfig {
         applicationId "com.example.workouttracker"
         minSdk 24
