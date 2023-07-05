@@ -10,7 +10,6 @@ import android.view.View;
 
 import com.example.workouttracker.CalorieBurned.model.CalorieBurned;
 import com.example.workouttracker.database.UserDatabase;
-import com.example.workouttracker.databinding.ActivityMainBinding;
 import com.example.workouttracker.user.model.User;
 import com.example.workouttracker.user.model.UserDao;
 import com.example.workouttracker.workout.model.Workout;
