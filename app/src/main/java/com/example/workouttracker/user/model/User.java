@@ -34,4 +34,30 @@ public class User {
         this.userName = userName;
         this.weightInPounds = weightInPounds;
     }
+
+    @NonNull
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(@NonNull String email) {
+        this.email = email;
+    }
+
+    @NonNull
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(@NonNull String userName) {
+        this.userName = userName;
+    }
+
+    public int getWeightInPounds() {
+        return weightInPounds;
+    }
+
+    public void setWeightInPounds(int weightInPounds) {
+        this.weightInPounds = weightInPounds;
+    }
 }

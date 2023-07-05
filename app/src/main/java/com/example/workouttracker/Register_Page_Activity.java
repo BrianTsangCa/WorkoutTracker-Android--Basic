@@ -17,7 +17,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class Register_Page_Activity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
@@ -51,32 +50,7 @@ public class Register_Page_Activity extends AppCompatActivity {
                             if(task.isSuccessful()){
 
                                 User Newuser = new User(_email, _userName,Integer.parseInt(_weightInPounds));
-                                FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                        .setValue(Newuser).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if(task.isSuccessful()){
-                                                    Toast.makeText(Register_Page_Activity.this, "USER CREATED IN DB", Toast.LENGTH_SHORT).show();
-                                                }
-                                                else{
-                                                    Toast.makeText(Register_Page_Activity.this, "USER CREATION DB NOT GOOFD", Toast.LENGTH_SHORT).show();
-                                                    Toast.makeText(Register_Page_Activity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
-                                                    System.out.println(task.getException().toString());
-                                                }
-                                            }
-                                        });
-
-                                FirebaseUser user = firebaseAuth.getCurrentUser();
-                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName(_userName)
-                                        .build();
-                                user.updateProfile(profileUpdates)
-                                        .addOnCompleteListener(task1 -> {
-                                            if (task1.isSuccessful()) {
-                                                Toast.makeText(Register_Page_Activity.this, "Registration successful", Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(Register_Page_Activity.this, LoginOrRegisterActivity.class));
-                                            }
-                                        });
+                                Toast.makeText(Register_Page_Activity.this, "User -("+Newuser.getUserName()+") is Created!", Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(Register_Page_Activity.this,LoginOrRegisterActivity.class));
                             }else{
                                 Toast.makeText(Register_Page_Activity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
