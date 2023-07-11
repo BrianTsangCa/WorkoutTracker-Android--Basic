@@ -25,10 +25,6 @@ public class User {
     @ColumnInfo(name="weightInPounds")
     int weightInPounds;
 
-//    @NonNull
-//    @ColumnInfo(name="calorieBurned")
-//    List<CalorieBurned> calorieBurned;
-
     public User(@NonNull String email, @NonNull String userName, int weightInPounds) {
         this.email = email;
         this.userName = userName;

@@ -23,6 +23,8 @@ import com.example.workouttracker.R;
 import com.example.workouttracker.WorkoutRecyclerAdapter;
 import com.example.workouttracker.workout.model.Difficulty;
 import com.example.workouttracker.workout.model.Workout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,6 +53,8 @@ public class WorkoutFragment extends Fragment {
     private String mParam2;
     private RequestQueue requestQueue;
     List<Workout> WorkOutList=new ArrayList<>();
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
 
     public WorkoutFragment() {
         // Required empty public constructor
@@ -87,6 +91,9 @@ public class WorkoutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_workout, container, false);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
         int client_weight=150;
 

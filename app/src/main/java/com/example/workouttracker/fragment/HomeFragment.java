@@ -3,12 +3,23 @@ package com.example.workouttracker.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.workouttracker.R;
+import com.example.workouttracker.database.UserDatabase;
+import com.example.workouttracker.user.model.User;
+import com.example.workouttracker.user.model.UserDao;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +27,7 @@ import com.example.workouttracker.R;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +37,10 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
+    UserDao userDao;
+    UserDatabase userDatabase;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -62,7 +78,27 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_home, container, false);
         // Inflate the layout for this fragment
+        TextView home_intro = view.findViewById(R.id.home_intro);
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        userDatabase = Room.databaseBuilder
+                (view.getContext(), UserDatabase.class,"user.db").build();
+        userDao = userDatabase.userDao();
+        String email = user.getEmail();
+        ExecutorService executorService= Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                User currentUser=userDao.GetUsers(email);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        home_intro.setText("Welcome to workout tracker "+currentUser.getUserName()+" ! ");
+                    }
+                });
+            }
+        });
+        Toast.makeText(view.getContext(), "email is "+email, Toast.LENGTH_SHORT).show();
         return view;
-
     }
 }
