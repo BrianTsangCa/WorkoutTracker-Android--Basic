@@ -2,7 +2,9 @@ package com.example.workouttracker;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +53,17 @@ public class WorkoutRecyclerAdapter extends RecyclerView.Adapter<WorkoutRecycler
             holder.card_difficulty.setBackgroundColor(Color.parseColor("#FF0000"));
         }
         holder.card_image.setImageResource(workout.getWorkoutImg());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context,WorkoutCountingActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("name",workout.getName());
+                bundle.putInt("calories_per_hour",Integer.parseInt(workout.getCalories_per_hour()));
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
