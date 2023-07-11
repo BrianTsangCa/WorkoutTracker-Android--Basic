@@ -11,9 +11,7 @@ import java.util.List;
 @Dao
 public interface CalorieBurnedDao {
 
-        @Query("SELECT email, date, totalCalorieBurned FROM calorieBurned")
-        List<User> GetAllCalorieBurned();
-
-
+        @Query("SELECT email, date, totalCalorieBurned FROM calorieBurned WHERE email=:Email")
+        List<CalorieBurned> GetAllCalorieBurned(String Email);
 
 }
