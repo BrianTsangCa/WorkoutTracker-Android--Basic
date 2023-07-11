@@ -1,33 +1,32 @@
 package com.example.workouttracker;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
 
 import android.os.Bundle;
-import android.view.View;
 
-import com.example.workouttracker.CalorieBurned.model.CalorieBurned;
-import com.example.workouttracker.database.UserDatabase;
-import com.example.workouttracker.user.model.User;
-import com.example.workouttracker.user.model.UserDao;
-import com.example.workouttracker.workout.model.Workout;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 
 public class MainActivity extends AppCompatActivity {
-    BottomNavigationMenuView bottomNavigationView;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
-//        bottomNavigationView.setOnNavigationItemSelectedListener();
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.action_home, R.id.action_workout, R.id.action_graph,R.id.action_statistic)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.fragmentContainerView);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
 }
