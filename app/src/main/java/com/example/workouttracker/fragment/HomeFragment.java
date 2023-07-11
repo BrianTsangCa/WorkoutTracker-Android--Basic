@@ -93,7 +93,7 @@ public class HomeFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        home_intro.setText("Welcome to workout tracker "+currentUser.getUserName()+" ! ");
+                        home_intro.setText("Welcome to workout tracker, "+currentUser.getUserName()+" ! ");
                     }
                 });
             }
