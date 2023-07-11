@@ -42,6 +42,10 @@ public class RegisterPageActivity extends AppCompatActivity {
                 String _password =editText_password.getText().toString();
                 String _userName=editText_username.getText().toString();
                 String _weightInPounds=editText_weight.getText().toString();
+                if(Integer.parseInt(_weightInPounds)<50||Integer.parseInt(_weightInPounds)>500){
+                    Toast.makeText(RegisterPageActivity.this, "Weight must be between 50 and 500", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 try{
                     firebaseAuth.createUserWithEmailAndPassword(_email, _password).addOnCompleteListener(RegisterPageActivity.this,new OnCompleteListener<AuthResult>() {
                         @Override

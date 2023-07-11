@@ -1,33 +1,49 @@
 package com.example.workouttracker.workout.model;
 
+import com.example.workouttracker.R;
+
 public class Workout {
-    private String title;
+    private String name;
+    private String calories_per_hour;
+
     private String category;
-    private String caloriePerHour;
-    private String difficulty;
+    private Difficulty diffculty;
+    private int workoutImg;
+
+
 
     public Workout() {
     }
 
-    public Workout(String title, String category, String caloriePerHour) {
-        this.title = title;
+    public Workout(String name, String calories_per_hour, String category, Difficulty diffculty) {
+        this.name = name;
+        this.calories_per_hour = calories_per_hour;
         this.category = category;
-        this.caloriePerHour = caloriePerHour;
-        if(Integer.parseInt(caloriePerHour)>=300){
-            difficulty="Hard";
-        }else if(Integer.parseInt(caloriePerHour)>=200){
-            difficulty="Medium";
-        }else {
-            difficulty="Easy";
+        this.diffculty = diffculty;
+        if(category.equals("Skiing")){
+            workoutImg= R.drawable.skii;
+        }else if(category.equals("Cycling")){
+            workoutImg= R.drawable.cycling;
+        }else if(category.equals("Aerobics")){
+            workoutImg= R.drawable.aerobics;
+        }else{
         }
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCalories_per_hour() {
+        return calories_per_hour;
+    }
+
+    public void setCalories_per_hour(String calories_per_hour) {
+        this.calories_per_hour = calories_per_hour;
     }
 
     public String getCategory() {
@@ -38,19 +54,19 @@ public class Workout {
         this.category = category;
     }
 
-    public String getCaloriePerHour() {
-        return caloriePerHour;
+    public Difficulty getDiffculty() {
+        return diffculty;
     }
 
-    public void setCaloriePerHour(String caloriePerHour) {
-        this.caloriePerHour = caloriePerHour;
+    public void setDiffculty(Difficulty diffculty) {
+        this.diffculty = diffculty;
     }
 
-    public String getDifficulty() {
-        return difficulty;
+    public int getWorkoutImg() {
+        return workoutImg;
     }
 
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
+    public void setWorkoutImg(int workoutImg) {
+        this.workoutImg = workoutImg;
     }
 }
