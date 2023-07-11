@@ -242,8 +242,7 @@ public class WorkoutFragment extends Fragment {
         requestQueue.add(jsonArrayRequest);
         requestQueue.add(jsonArrayRequest2);
         requestQueue.add(jsonArrayRequest3);
-
-
+        
         // Inflate the layout for this fragment
         return view;
 
