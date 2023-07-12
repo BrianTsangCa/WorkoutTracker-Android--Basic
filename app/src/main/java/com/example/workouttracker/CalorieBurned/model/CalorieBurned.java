@@ -8,8 +8,12 @@ import androidx.room.PrimaryKey;
 import java.text.DateFormat;
 @Entity(tableName = "calorieBurned")
 public class CalorieBurned {
+
     @NonNull
-    @PrimaryKey
+    @ColumnInfo(name="workoutID")
+    @PrimaryKey(autoGenerate = true)
+    int workoutID;
+    @NonNull
     @ColumnInfo(name="email")
     String email;
 
@@ -24,18 +28,18 @@ public class CalorieBurned {
     @ColumnInfo(name="dateDay")
     private int dateDay;
     @NonNull
-    @ColumnInfo(name="totalCalorieBurned")
-    private int totalCalorieBurned;
+    @ColumnInfo(name="workoutCalorieBurned")
+    private int workoutCalorieBurned;
 
     public CalorieBurned() {
     }
 
-    public CalorieBurned(@NonNull String email, int dateYear, int dateMonth, int dateDay, int totalCalorieBurned) {
+    public CalorieBurned(@NonNull String email, int dateYear, int dateMonth, int dateDay, int workoutCalorieBurned) {
         this.email = email;
         this.dateYear = dateYear;
         this.dateMonth = dateMonth;
         this.dateDay = dateDay;
-        this.totalCalorieBurned = totalCalorieBurned;
+        this.workoutCalorieBurned = workoutCalorieBurned;
     }
 
     @NonNull
@@ -71,11 +75,19 @@ public class CalorieBurned {
         this.dateDay = dateDay;
     }
 
-    public int getTotalCalorieBurned() {
-        return totalCalorieBurned;
+    public int getWorkoutID() {
+        return workoutID;
     }
 
-    public void setTotalCalorieBurned(int totalCalorieBurned) {
-        this.totalCalorieBurned = totalCalorieBurned;
+    public void setWorkoutID(int workoutID) {
+        this.workoutID = workoutID;
+    }
+
+    public int getWorkoutCalorieBurned() {
+        return workoutCalorieBurned;
+    }
+
+    public void setWorkoutCalorieBurned(int workoutCalorieBurned) {
+        this.workoutCalorieBurned = workoutCalorieBurned;
     }
 }

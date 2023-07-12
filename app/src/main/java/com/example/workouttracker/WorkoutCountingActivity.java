@@ -95,6 +95,7 @@ public class WorkoutCountingActivity extends AppCompatActivity {
                     int year = calendar.get(Calendar.YEAR);
                     int month = calendar.get(Calendar.MONTH) + 1;
                     int day = calendar.get(Calendar.DAY_OF_MONTH);
+                    // missing existing calorie
                     CalorieBurned calorieBurnedData = new CalorieBurned(email,year,month,day,calories_per_hour*second/60/60);
                     ExecutorService executorService= Executors.newSingleThreadExecutor();
                     executorService.execute(new Runnable() {
@@ -110,7 +111,7 @@ public class WorkoutCountingActivity extends AppCompatActivity {
                         }
                     });
                     second = 0;
-                    Toast.makeText(WorkoutCountingActivity.this, "Calorie Burned Data -("+calorieBurnedData.getTotalCalorieBurned()+" ) is Created!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(WorkoutCountingActivity.this, "Calorie Burned Data -("+calorieBurnedData.getWorkoutCalorieBurned()+" ) is Created!", Toast.LENGTH_LONG).show();
                     startActivity(intent);
                 }
             }

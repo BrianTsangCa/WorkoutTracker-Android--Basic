@@ -11,13 +11,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.workouttracker.CalorieBurned.model.CalorieBurned;
+import com.example.workouttracker.CalorieBurned.model.CalorieBurnedDao;
 import com.example.workouttracker.R;
+import com.example.workouttracker.database.CalorieBurnedDatabase;
 import com.example.workouttracker.database.UserDatabase;
 import com.example.workouttracker.user.model.User;
 import com.example.workouttracker.user.model.UserDao;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Calendar;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -41,6 +45,8 @@ public class HomeFragment extends Fragment {
     FirebaseUser user;
     UserDao userDao;
     UserDatabase userDatabase;
+    CalorieBurnedDao calorieBurnedDao;
+    CalorieBurnedDatabase calorieBurnedDatabase;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -85,6 +91,10 @@ public class HomeFragment extends Fragment {
                 (view.getContext(), UserDatabase.class,"user.db").build();
         userDao = userDatabase.userDao();
         String email = user.getEmail();
+        calorieBurnedDatabase = Room.databaseBuilder
+                (view.getContext(), CalorieBurnedDatabase.class,"calorieBurned.db").build();
+        calorieBurnedDao = calorieBurnedDatabase.calorieBurnedDao();
+
         ExecutorService executorService= Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
             @Override
@@ -94,6 +104,23 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void run() {
                         home_intro.setText("Welcome to workout tracker, "+currentUser.getUserName()+" ! ");
+                    }
+                });
+            }
+        });
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        ExecutorService executorService2= Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                int calorie=calorieBurnedDao.GetAllCalorieBurnedToday(email,year,month,day);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        home_intro.setText(home_intro.getText()+" "+calorie+" calorie is burned today!");
                     }
                 });
             }
