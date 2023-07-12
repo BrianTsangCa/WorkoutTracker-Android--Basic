@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-//                        home_intro.setText("Welcome to workout tracker, "+currentUser.getUserName()+" ! ");
+                        home_intro.setText("Welcome to workout tracker, "+currentUser.getUserName()+" ! ");
                     }
                 });
             }
@@ -112,7 +112,6 @@ public class HomeFragment extends Fragment {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        ExecutorService executorService2= Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
             @Override
             public void run() {
@@ -128,4 +127,5 @@ public class HomeFragment extends Fragment {
         Toast.makeText(view.getContext(), "email is "+email, Toast.LENGTH_SHORT).show();
         return view;
     }
+
 }

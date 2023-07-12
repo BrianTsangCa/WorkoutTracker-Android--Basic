@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.workouttracker.R;
 import com.example.workouttracker.WorkoutRecyclerAdapter;
+import com.example.workouttracker.database.UserDatabase;
+import com.example.workouttracker.user.model.User;
+import com.example.workouttracker.user.model.UserDao;
 import com.example.workouttracker.workout.model.Difficulty;
 import com.example.workouttracker.workout.model.Workout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +38,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 /**
@@ -55,6 +61,10 @@ public class WorkoutFragment extends Fragment {
     List<Workout> WorkOutList=new ArrayList<>();
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
+    UserDao userDao;
+    UserDatabase userDatabase;
+    int client_weight=0;
+
 
     public WorkoutFragment() {
         // Required empty public constructor
@@ -94,8 +104,26 @@ public class WorkoutFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
+        userDatabase = Room.databaseBuilder
+                (view.getContext(), UserDatabase.class,"user.db").build();
+        userDao = userDatabase.userDao();
+        String email = user.getEmail();
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
-        int client_weight=150;
+        ExecutorService executorService= Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                User currentUser=userDao.GetUsers(email);
+                client_weight=currentUser.getWeightInPounds();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+//                        home_intro.setText("Welcome to workout tracker, "+currentUser.getUserName()+" ! ");
+                    }
+                });
+            }
+        });
+
 
         // Make the API call using JsonArrayRequest
         String url = "https://calories-burned-by-api-ninjas.p.rapidapi.com/v1/caloriesburned?activity=skiing&weight="+client_weight;
