@@ -14,9 +14,15 @@ public class CalorieBurned {
     String email;
 
     @NonNull
-    @ColumnInfo(name="date")
-    private DateFormat date;
+    @ColumnInfo(name="dateYear")
+    private int dateYear;
 
+    @NonNull
+    @ColumnInfo(name="dateMonth")
+    private int dateMonth;
+    @NonNull
+    @ColumnInfo(name="dateDay")
+    private int dateDay;
     @NonNull
     @ColumnInfo(name="totalCalorieBurned")
     private int totalCalorieBurned;
@@ -24,9 +30,11 @@ public class CalorieBurned {
     public CalorieBurned() {
     }
 
-    public CalorieBurned(@NonNull String email, @NonNull DateFormat date, int totalCalorieBurned) {
+    public CalorieBurned(@NonNull String email, int dateYear, int dateMonth, int dateDay, int totalCalorieBurned) {
         this.email = email;
-        this.date = date;
+        this.dateYear = dateYear;
+        this.dateMonth = dateMonth;
+        this.dateDay = dateDay;
         this.totalCalorieBurned = totalCalorieBurned;
     }
 
@@ -39,13 +47,28 @@ public class CalorieBurned {
         this.email = email;
     }
 
-    @NonNull
-    public DateFormat getDate() {
-        return date;
+    public int getDateYear() {
+        return dateYear;
     }
 
-    public void setDate(@NonNull DateFormat date) {
-        this.date = date;
+    public void setDateYear(int dateYear) {
+        this.dateYear = dateYear;
+    }
+
+    public int getDateMonth() {
+        return dateMonth;
+    }
+
+    public void setDateMonth(int dateMonth) {
+        this.dateMonth = dateMonth;
+    }
+
+    public int getDateDay() {
+        return dateDay;
+    }
+
+    public void setDateDay(int dateDay) {
+        this.dateDay = dateDay;
     }
 
     public int getTotalCalorieBurned() {

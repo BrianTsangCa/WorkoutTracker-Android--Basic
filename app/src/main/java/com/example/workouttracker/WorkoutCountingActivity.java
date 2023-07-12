@@ -2,6 +2,7 @@ package com.example.workouttracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -63,6 +64,7 @@ public class WorkoutCountingActivity extends AppCompatActivity {
                     second = 0;
                     String time=String.format("%02d:%02d:%02d", second/60/60, second/60, second%60);
                     txtView_time.setText(time);
+                    Intent intent=new Intent();
 
                 }
             }

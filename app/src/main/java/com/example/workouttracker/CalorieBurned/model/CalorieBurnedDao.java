@@ -11,7 +11,9 @@ import java.util.List;
 @Dao
 public interface CalorieBurnedDao {
 
-        @Query("SELECT email, date, totalCalorieBurned FROM calorieBurned WHERE email=:Email")
+        @Query("SELECT email, dateYear,dateMonth,dateDay, totalCalorieBurned FROM calorieBurned WHERE email=:Email")
         List<CalorieBurned> GetAllCalorieBurned(String Email);
 
+        @Insert(onConflict = OnConflictStrategy.REPLACE)
+        void insertCalorieBurned(CalorieBurned calorieBurned);
 }
