@@ -82,28 +82,28 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
         // Inflate the layout for this fragment
         TextView home_intro = view.findViewById(R.id.home_intro);
         firebaseAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         userDatabase = Room.databaseBuilder
-                (view.getContext(), UserDatabase.class,"user.db").build();
+                (view.getContext(), UserDatabase.class, "user.db").build();
         userDao = userDatabase.userDao();
         String email = user.getEmail();
         calorieBurnedDatabase = Room.databaseBuilder
-                (view.getContext(), CalorieBurnedDatabase.class,"calorieBurned.db").build();
+                (view.getContext(), CalorieBurnedDatabase.class, "calorieBurned.db").build();
         calorieBurnedDao = calorieBurnedDatabase.calorieBurnedDao();
 
-        ExecutorService executorService= Executors.newSingleThreadExecutor();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                User currentUser=userDao.GetUsers(email);
+                User currentUser = userDao.GetUsers(email);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        home_intro.setText("Welcome to workout tracker, "+currentUser.getUserName()+" ! ");
+                        home_intro.setText("Welcome to workout tracker, " + currentUser.getUserName() + " ! ");
                     }
                 });
             }
@@ -115,16 +115,16 @@ public class HomeFragment extends Fragment {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                int calorie=calorieBurnedDao.GetAllCalorieBurnedToday(email,year,month,day);
+                int calorie = calorieBurnedDao.GetAllCalorieBurnedToday(email, year, month, day);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        home_intro.setText(home_intro.getText()+" "+calorie+" calorie is burned today!");
+                        home_intro.setText(home_intro.getText() + " " + calorie + " calorie is burned today!");
                     }
                 });
             }
         });
-        Toast.makeText(view.getContext(), "email is "+email, Toast.LENGTH_SHORT).show();
+        Toast.makeText(view.getContext(), "email is " + email, Toast.LENGTH_SHORT).show();
         return view;
     }
 

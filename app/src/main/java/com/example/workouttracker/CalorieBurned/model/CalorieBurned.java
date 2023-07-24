@@ -6,29 +6,30 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.text.DateFormat;
+
 @Entity(tableName = "calorieBurned")
 public class CalorieBurned {
 
     @NonNull
-    @ColumnInfo(name="workoutID")
+    @ColumnInfo(name = "workoutID")
     @PrimaryKey(autoGenerate = true)
     int workoutID;
     @NonNull
-    @ColumnInfo(name="email")
+    @ColumnInfo(name = "email")
     String email;
 
     @NonNull
-    @ColumnInfo(name="dateYear")
+    @ColumnInfo(name = "dateYear")
     private int dateYear;
 
     @NonNull
-    @ColumnInfo(name="dateMonth")
+    @ColumnInfo(name = "dateMonth")
     private int dateMonth;
     @NonNull
-    @ColumnInfo(name="dateDay")
+    @ColumnInfo(name = "dateDay")
     private int dateDay;
     @NonNull
-    @ColumnInfo(name="workoutCalorieBurned")
+    @ColumnInfo(name = "workoutCalorieBurned")
     private int workoutCalorieBurned;
 
     public CalorieBurned() {

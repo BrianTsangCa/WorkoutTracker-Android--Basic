@@ -11,7 +11,6 @@ public class Workout {
     private int workoutImg;
 
 
-
     public Workout() {
     }
 
@@ -20,13 +19,13 @@ public class Workout {
         this.calories_per_hour = calories_per_hour;
         this.category = category;
         this.diffculty = diffculty;
-        if(category.equals("Skiing")){
-            workoutImg= R.drawable.skii;
-        }else if(category.equals("Cycling")){
-            workoutImg= R.drawable.cycling;
-        }else if(category.equals("Aerobics")){
-            workoutImg= R.drawable.aerobics;
-        }else{
+        if (category.equals("Skiing")) {
+            workoutImg = R.drawable.skii;
+        } else if (category.equals("Cycling")) {
+            workoutImg = R.drawable.cycling;
+        } else if (category.equals("Aerobics")) {
+            workoutImg = R.drawable.aerobics;
+        } else {
         }
     }
 

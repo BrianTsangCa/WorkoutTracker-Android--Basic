@@ -1,4 +1,4 @@
-package com.example.workouttracker;
+package com.example.workouttracker.Adapter;
 
 
 import android.content.Context;
@@ -12,10 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.workouttracker.CalorieBurned.model.CalorieBurned;
+import com.example.workouttracker.R;
+import com.example.workouttracker.WorkoutCountingActivity;
 import com.example.workouttracker.workout.model.Workout;
 
 import java.util.List;
@@ -32,34 +32,34 @@ public class WorkoutRecyclerAdapter extends RecyclerView.Adapter<WorkoutRecycler
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.workout_cardlayout,parent,false);
-        ViewHolder viewHolder=new ViewHolder(v);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.workout_cardlayout, parent, false);
+        ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Workout workout=WorkOutList.get(position);
+        Workout workout = WorkOutList.get(position);
         holder.card_name.setText(workout.getName());
-        holder.card_calories_per_hour.setText("Calorie Burned per hour:"+workout.getCalories_per_hour());
+        holder.card_calories_per_hour.setText("Calorie Burned per hour:" + workout.getCalories_per_hour());
         holder.card_category.setText(workout.getCategory());
         holder.card_difficulty.setText(workout.getDiffculty().toString());
         holder.card_difficulty.setBackgroundColor(Color.parseColor("#00FF00"));
-        if(workout.getDiffculty().toString().equals("Easy")){
+        if (workout.getDiffculty().toString().equals("Easy")) {
             holder.card_difficulty.setBackgroundColor(Color.parseColor("#00FF00"));
-        }else if(workout.getDiffculty().toString().equals("Medium")){
+        } else if (workout.getDiffculty().toString().equals("Medium")) {
             holder.card_difficulty.setBackgroundColor(Color.parseColor("#FFA500"));
-        }else{
+        } else {
             holder.card_difficulty.setBackgroundColor(Color.parseColor("#FF0000"));
         }
         holder.card_image.setImageResource(workout.getWorkoutImg());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context,WorkoutCountingActivity.class);
-                Bundle bundle=new Bundle();
-                bundle.putString("name",workout.getName());
-                bundle.putInt("calories_per_hour",Integer.parseInt(workout.getCalories_per_hour()));
+                Intent intent = new Intent(context, WorkoutCountingActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("name", workout.getName());
+                bundle.putInt("calories_per_hour", Integer.parseInt(workout.getCalories_per_hour()));
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }
@@ -71,17 +71,17 @@ public class WorkoutRecyclerAdapter extends RecyclerView.Adapter<WorkoutRecycler
         return WorkOutList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView card_image;
-        TextView card_name,card_calories_per_hour,card_category,card_difficulty;
+        TextView card_name, card_calories_per_hour, card_category, card_difficulty;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            card_image=itemView.findViewById(R.id.card_image);
-            card_name=itemView.findViewById(R.id.card_name);
-            card_calories_per_hour=itemView.findViewById(R.id.card_calories_per_hour);
-            card_category=itemView.findViewById(R.id.card_category);
-            card_difficulty=itemView.findViewById(R.id.card_difficulty);
+            card_image = itemView.findViewById(R.id.card_image);
+            card_name = itemView.findViewById(R.id.card_name);
+            card_calories_per_hour = itemView.findViewById(R.id.card_calories_per_hour);
+            card_category = itemView.findViewById(R.id.card_category);
+            card_difficulty = itemView.findViewById(R.id.card_difficulty);
         }
     }
 }

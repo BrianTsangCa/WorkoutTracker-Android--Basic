@@ -14,15 +14,15 @@ public class User {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name="email")
+    @ColumnInfo(name = "email")
     String email;
 
     @NonNull
-    @ColumnInfo(name="userName")
+    @ColumnInfo(name = "userName")
     String userName;
 
     @NonNull
-    @ColumnInfo(name="weightInPounds")
+    @ColumnInfo(name = "weightInPounds")
     int weightInPounds;
 
     public User(@NonNull String email, @NonNull String userName, int weightInPounds) {

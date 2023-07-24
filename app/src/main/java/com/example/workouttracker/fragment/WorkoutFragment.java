@@ -18,10 +18,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.workouttracker.R;
-import com.example.workouttracker.WorkoutRecyclerAdapter;
+import com.example.workouttracker.Adapter.WorkoutRecyclerAdapter;
 import com.example.workouttracker.database.UserDatabase;
 import com.example.workouttracker.user.model.User;
 import com.example.workouttracker.user.model.UserDao;
@@ -58,12 +57,12 @@ public class WorkoutFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private RequestQueue requestQueue;
-    List<Workout> WorkOutList=new ArrayList<>();
+    List<Workout> WorkOutList = new ArrayList<>();
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     UserDao userDao;
     UserDatabase userDatabase;
-    int client_weight=0;
+    int client_weight = 0;
 
 
     public WorkoutFragment() {
@@ -100,21 +99,21 @@ public class WorkoutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_workout, container, false);
+        View view = inflater.inflate(R.layout.fragment_workout, container, false);
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         userDatabase = Room.databaseBuilder
-                (view.getContext(), UserDatabase.class,"user.db").build();
+                (view.getContext(), UserDatabase.class, "user.db").build();
         userDao = userDatabase.userDao();
         String email = user.getEmail();
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
-        ExecutorService executorService= Executors.newSingleThreadExecutor();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                User currentUser=userDao.GetUsers(email);
-                client_weight=currentUser.getWeightInPounds();
+                User currentUser = userDao.GetUsers(email);
+                client_weight = currentUser.getWeightInPounds();
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -126,34 +125,34 @@ public class WorkoutFragment extends Fragment {
 
 
         // Make the API call using JsonArrayRequest
-        String url = "https://calories-burned-by-api-ninjas.p.rapidapi.com/v1/caloriesburned?activity=skiing&weight="+client_weight;
+        String url = "https://calories-burned-by-api-ninjas.p.rapidapi.com/v1/caloriesburned?activity=skiing&weight=" + client_weight;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            for(int i=0;i<response.length();i++){
-                                JSONObject workoutData=response.getJSONObject(i);
-                                String name=workoutData.getString("name");
-                                String calories_per_hour=workoutData.getString("calories_per_hour");
-                                String category="Skiing";
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject workoutData = response.getJSONObject(i);
+                                String name = workoutData.getString("name");
+                                String calories_per_hour = workoutData.getString("calories_per_hour");
+                                String category = "Skiing";
                                 Difficulty diffculty;
-                                if(Integer.parseInt(calories_per_hour)<=510){
-                                    diffculty=Difficulty.Easy;
-                                }else if(Integer.parseInt(calories_per_hour)<=610){
-                                    diffculty=Difficulty.Medium;
-                                }else{
-                                    diffculty=Difficulty.Hard;
+                                if (Integer.parseInt(calories_per_hour) <= 510) {
+                                    diffculty = Difficulty.Easy;
+                                } else if (Integer.parseInt(calories_per_hour) <= 610) {
+                                    diffculty = Difficulty.Medium;
+                                } else {
+                                    diffculty = Difficulty.Hard;
                                 }
-                                Workout workout=new Workout(name,calories_per_hour,category,diffculty);
+                                Workout workout = new Workout(name, calories_per_hour, category, diffculty);
                                 WorkOutList.add(workout);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        RecyclerView workout_recyclerview=view.findViewById(R.id.workout_recyclerview);
+                        RecyclerView workout_recyclerview = view.findViewById(R.id.workout_recyclerview);
                         workout_recyclerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
-                        workout_recyclerview.setAdapter(new WorkoutRecyclerAdapter(WorkOutList,view.getContext()));
+                        workout_recyclerview.setAdapter(new WorkoutRecyclerAdapter(WorkOutList, view.getContext()));
                     }
                 },
                 new Response.ErrorListener() {
@@ -162,7 +161,7 @@ public class WorkoutFragment extends Fragment {
                         // Handle the error occurred during the API call
                         // Update the UI or log the error message as per your requirements
                         Toast.makeText(view.getContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.d("error","Error: " + error.getMessage());
+                        Log.d("error", "Error: " + error.getMessage());
                     }
                 }
         ) {
@@ -175,34 +174,34 @@ public class WorkoutFragment extends Fragment {
             }
         };
         // Make the API call using JsonArrayRequest
-        String url2 = "https://calories-burned-by-api-ninjas.p.rapidapi.com/v1/caloriesburned?activity=cycling&weight="+client_weight;
+        String url2 = "https://calories-burned-by-api-ninjas.p.rapidapi.com/v1/caloriesburned?activity=cycling&weight=" + client_weight;
         JsonArrayRequest jsonArrayRequest2 = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            for(int i=0;i<response.length();i++){
-                                JSONObject workoutData=response.getJSONObject(i);
-                                String name=workoutData.getString("name");
-                                String calories_per_hour=workoutData.getString("calories_per_hour");
-                                String category="Cycling";
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject workoutData = response.getJSONObject(i);
+                                String name = workoutData.getString("name");
+                                String calories_per_hour = workoutData.getString("calories_per_hour");
+                                String category = "Cycling";
                                 Difficulty diffculty;
-                                if(Integer.parseInt(calories_per_hour)<=510){
-                                    diffculty=Difficulty.Easy;
-                                }else if(Integer.parseInt(calories_per_hour)<=610){
-                                    diffculty=Difficulty.Medium;
-                                }else{
-                                    diffculty=Difficulty.Hard;
+                                if (Integer.parseInt(calories_per_hour) <= 510) {
+                                    diffculty = Difficulty.Easy;
+                                } else if (Integer.parseInt(calories_per_hour) <= 610) {
+                                    diffculty = Difficulty.Medium;
+                                } else {
+                                    diffculty = Difficulty.Hard;
                                 }
-                                Workout workout=new Workout(name,calories_per_hour,category,diffculty);
+                                Workout workout = new Workout(name, calories_per_hour, category, diffculty);
                                 WorkOutList.add(workout);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        RecyclerView workout_recyclerview=view.findViewById(R.id.workout_recyclerview);
+                        RecyclerView workout_recyclerview = view.findViewById(R.id.workout_recyclerview);
                         workout_recyclerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
-                        workout_recyclerview.setAdapter(new WorkoutRecyclerAdapter(WorkOutList,view.getContext()));
+                        workout_recyclerview.setAdapter(new WorkoutRecyclerAdapter(WorkOutList, view.getContext()));
                     }
                 },
                 new Response.ErrorListener() {
@@ -211,7 +210,7 @@ public class WorkoutFragment extends Fragment {
                         // Handle the error occurred during the API call
                         // Update the UI or log the error message as per your requirements
                         Toast.makeText(view.getContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.d("error","Error: " + error.getMessage());
+                        Log.d("error", "Error: " + error.getMessage());
                     }
                 }
         ) {
@@ -224,34 +223,34 @@ public class WorkoutFragment extends Fragment {
             }
         };
         // Make the API call using JsonArrayRequest
-        String url3 = "https://calories-burned-by-api-ninjas.p.rapidapi.com/v1/caloriesburned?activity=aerobics&weight="+client_weight;
+        String url3 = "https://calories-burned-by-api-ninjas.p.rapidapi.com/v1/caloriesburned?activity=aerobics&weight=" + client_weight;
         JsonArrayRequest jsonArrayRequest3 = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            for(int i=0;i<response.length();i++){
-                                JSONObject workoutData=response.getJSONObject(i);
-                                String name=workoutData.getString("name");
-                                String calories_per_hour=workoutData.getString("calories_per_hour");
-                                String category="Aerobics";
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject workoutData = response.getJSONObject(i);
+                                String name = workoutData.getString("name");
+                                String calories_per_hour = workoutData.getString("calories_per_hour");
+                                String category = "Aerobics";
                                 Difficulty diffculty;
-                                if(Integer.parseInt(calories_per_hour)<=510){
-                                    diffculty=Difficulty.Easy;
-                                }else if(Integer.parseInt(calories_per_hour)<=610){
-                                    diffculty=Difficulty.Medium;
-                                }else{
-                                    diffculty=Difficulty.Hard;
+                                if (Integer.parseInt(calories_per_hour) <= 510) {
+                                    diffculty = Difficulty.Easy;
+                                } else if (Integer.parseInt(calories_per_hour) <= 610) {
+                                    diffculty = Difficulty.Medium;
+                                } else {
+                                    diffculty = Difficulty.Hard;
                                 }
-                                Workout workout=new Workout(name,calories_per_hour,category,diffculty);
+                                Workout workout = new Workout(name, calories_per_hour, category, diffculty);
                                 WorkOutList.add(workout);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        RecyclerView workout_recyclerview=view.findViewById(R.id.workout_recyclerview);
+                        RecyclerView workout_recyclerview = view.findViewById(R.id.workout_recyclerview);
                         workout_recyclerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
-                        workout_recyclerview.setAdapter(new WorkoutRecyclerAdapter(WorkOutList,view.getContext()));
+                        workout_recyclerview.setAdapter(new WorkoutRecyclerAdapter(WorkOutList, view.getContext()));
                     }
                 },
                 new Response.ErrorListener() {
@@ -260,7 +259,7 @@ public class WorkoutFragment extends Fragment {
                         // Handle the error occurred during the API call
                         // Update the UI or log the error message as per your requirements
                         Toast.makeText(view.getContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.d("error","Error: " + error.getMessage());
+                        Log.d("error", "Error: " + error.getMessage());
                     }
                 }
         ) {
@@ -277,7 +276,7 @@ public class WorkoutFragment extends Fragment {
         requestQueue.add(jsonArrayRequest);
         requestQueue.add(jsonArrayRequest2);
         requestQueue.add(jsonArrayRequest3);
-        
+
         // Inflate the layout for this fragment
         return view;
 
