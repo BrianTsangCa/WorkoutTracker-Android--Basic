@@ -55,8 +55,15 @@ public class CalorieBurnedRecyclerAdapter extends RecyclerView.Adapter<CalorieBu
         } else {
             calorieBurned_left = 0f;
         }
-        entriers.add(new PieEntry(calorieBurned_value, "calories burned"));
-        entriers.add(new PieEntry(calorieBurned_left, "calorieBurned_left"));
+        int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
+        int screenHeight = context.getResources().getDisplayMetrics().heightPixels;
+        int chartSize = Math.min(screenWidth, screenHeight) / 2; // You can adjust the size as needed
+        ViewGroup.LayoutParams layoutParams = holder.pieChart.getLayoutParams();
+        layoutParams.width = chartSize;
+        layoutParams.height = chartSize;
+        holder.pieChart.setLayoutParams(layoutParams);
+        entriers.add(new PieEntry(calorieBurned_value, ""));
+        entriers.add(new PieEntry(calorieBurned_left, ""));
         PieDataSet pieDataSet = new PieDataSet(entriers, "Day");
         pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
         PieData pieData = new PieData(pieDataSet);
@@ -64,7 +71,7 @@ public class CalorieBurnedRecyclerAdapter extends RecyclerView.Adapter<CalorieBu
         holder.pieChart.getDescription().setEnabled(false);
         holder.pieChart.animateY(1000);
         holder.pieChart.invalidate();
-        holder.chart_title.setText(calorieBurned.getDateDay());
+//        holder.chart_title.setText(calorieBurned.getDateDay());
 
     }
 
