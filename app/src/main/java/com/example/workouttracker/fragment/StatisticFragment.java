@@ -101,17 +101,15 @@ public class StatisticFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
+                        RecyclerView statistic_recyclerview = view.findViewById(R.id.statistic_recyclerview);
+                        statistic_recyclerview.setLayoutManager(new GridLayoutManager(view.getContext(), 3));
+                        statistic_recyclerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                        statistic_recyclerview.setAdapter(new CalorieBurnedRecyclerAdapter(calorieBurnedList, view.getContext()));
                     }
                 });
             }
         });
 
-
-        RecyclerView statistic_recyclerview = view.findViewById(R.id.statistic_recyclerview);
-        statistic_recyclerview.setLayoutManager(new GridLayoutManager(view.getContext(), 5));
-        statistic_recyclerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        statistic_recyclerview.setAdapter(new CalorieBurnedRecyclerAdapter(calorieBurnedList, view.getContext()));
 
         // Inflate the layout for this fragment
         return view;

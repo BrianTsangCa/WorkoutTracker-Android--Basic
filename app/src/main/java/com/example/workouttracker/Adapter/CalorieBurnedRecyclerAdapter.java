@@ -57,7 +57,7 @@ public class CalorieBurnedRecyclerAdapter extends RecyclerView.Adapter<CalorieBu
         }
         int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
         int screenHeight = context.getResources().getDisplayMetrics().heightPixels;
-        int chartSize = Math.min(screenWidth, screenHeight) / 2; // You can adjust the size as needed
+        int chartSize = Math.min(screenWidth, screenHeight) / 2;
         ViewGroup.LayoutParams layoutParams = holder.pieChart.getLayoutParams();
         layoutParams.width = chartSize;
         layoutParams.height = chartSize;
@@ -71,7 +71,6 @@ public class CalorieBurnedRecyclerAdapter extends RecyclerView.Adapter<CalorieBu
         holder.pieChart.getDescription().setEnabled(false);
         holder.pieChart.animateY(1000);
         holder.pieChart.invalidate();
-//        holder.chart_title.setText(calorieBurned.getDateDay());
 
     }
 
@@ -82,12 +81,10 @@ public class CalorieBurnedRecyclerAdapter extends RecyclerView.Adapter<CalorieBu
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         PieChart pieChart;
-        TextView chart_title;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             pieChart = itemView.findViewById(R.id.chart);
-            chart_title = itemView.findViewById(R.id.chart_title);
         }
     }
 
