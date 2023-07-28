@@ -11,6 +11,7 @@ import androidx.room.Room;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 
 import com.example.workouttracker.Adapter.CalorieBurnedRecyclerAdapter;
 import com.example.workouttracker.Adapter.WorkoutRecyclerAdapter;
@@ -108,7 +109,7 @@ public class StatisticFragment extends Fragment {
                 });
             }
         });
-
+        Spinner spinner_dataformat=view.findViewById(R.id.spinner_dataformat);
 
         // Inflate the layout for this fragment
         return view;

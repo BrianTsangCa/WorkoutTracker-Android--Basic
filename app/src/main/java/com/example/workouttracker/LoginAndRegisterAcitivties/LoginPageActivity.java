@@ -130,6 +130,7 @@ public class LoginPageActivity extends AppCompatActivity {
             @Override
             public void run() {
                 userDao.insertUser(newuser);
+                calorieBurnedDao.deleteAllCalorieBurned(_email);
                 for (int i = 0; i < calorieBurnedList.size(); i++) {
                     calorieBurnedDao.insertCalorieBurned(calorieBurnedList.get(i));
                 }

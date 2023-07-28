@@ -1,6 +1,7 @@
 package com.example.workouttracker.CalorieBurned.model;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -20,4 +21,22 @@ public interface CalorieBurnedDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertCalorieBurned(CalorieBurned calorieBurned);
+
+    @Query("DELETE FROM calorieBurned WHERE email=:email")
+    void deleteAllCalorieBurned(String email);
+
+    @Query("SELECT workoutID, email, dateYear, dateMonth, dateDay, workoutCalorieBurned " +
+            "FROM calorieBurned WHERE email=:email AND dateYear=:currentYear")
+    List<CalorieBurned> getAllCalorieBurnedThisYear(String email, int currentYear);
+
+    @Query("SELECT workoutID, email, dateYear, dateMonth, dateDay, workoutCalorieBurned " +
+            "FROM calorieBurned WHERE email=:email AND dateYear=:currentYear AND dateMonth=:currentMonth")
+    List<CalorieBurned> getAllCalorieBurnedThisMonth(String email, int currentYear, int currentMonth);
+
+    @Query("SELECT workoutID, email, dateYear, dateMonth, dateDay, workoutCalorieBurned " +
+            "FROM calorieBurned WHERE email=:email AND dateYear=:currentYear AND dateMonth=:currentMonth " +
+            "AND dateDay BETWEEN :startDay AND :endDay")
+    List<CalorieBurned> getAllCalorieBurnedThisWeek(String email, int currentYear, int currentMonth, int startDay, int endDay);
+
+
 }

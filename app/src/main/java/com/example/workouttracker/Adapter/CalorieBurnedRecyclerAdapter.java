@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,8 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,29 +52,10 @@ public class CalorieBurnedRecyclerAdapter extends RecyclerView.Adapter<CalorieBu
 
         float calorieBurned_value = calorieBurned.getWorkoutCalorieBurned();
         float target = 1000f;
-        float calorieBurned_left;
-        if (calorieBurned_value <= target) {
-            calorieBurned_left = target - calorieBurned_value;
-        } else {
-            calorieBurned_left = 0f;
-        }
-        int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
-        int screenHeight = context.getResources().getDisplayMetrics().heightPixels;
-        int chartSize = Math.min(screenWidth, screenHeight) / 2;
-        ViewGroup.LayoutParams layoutParams = holder.pieChart.getLayoutParams();
-        layoutParams.width = chartSize;
-        layoutParams.height = chartSize;
-        holder.pieChart.setLayoutParams(layoutParams);
-        entriers.add(new PieEntry(calorieBurned_value, ""));
-        entriers.add(new PieEntry(calorieBurned_left, ""));
-        PieDataSet pieDataSet = new PieDataSet(entriers, "Day");
-        pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        PieData pieData = new PieData(pieDataSet);
-        holder.pieChart.setData(pieData);
-        holder.pieChart.getDescription().setEnabled(false);
-        holder.pieChart.animateY(1000);
-        holder.pieChart.invalidate();
-
+        float percentage = calorieBurned_value / target * 100;
+        holder.progressBar.setProgress((int) percentage);
+        holder.txtView_date.setText(calorieBurned.getDateYear() + "/" + calorieBurned.getDateMonth() + "/" + calorieBurned.getDateDay());
+        holder.txtView_percentage.setText(percentage + "%");
     }
 
     @Override
@@ -80,11 +64,14 @@ public class CalorieBurnedRecyclerAdapter extends RecyclerView.Adapter<CalorieBu
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        PieChart pieChart;
+        ProgressBar progressBar;
+        TextView txtView_percentage, txtView_date;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            pieChart = itemView.findViewById(R.id.chart);
+            progressBar = itemView.findViewById(R.id.progressBar);
+            txtView_percentage = itemView.findViewById(R.id.txtView_percentage);
+            txtView_date = itemView.findViewById(R.id.txtView_date);
         }
     }
 
