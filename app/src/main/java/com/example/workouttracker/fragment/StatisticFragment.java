@@ -11,6 +11,7 @@ import androidx.room.Room;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import com.example.workouttracker.Adapter.CalorieBurnedRecyclerAdapter;
@@ -27,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -109,7 +111,55 @@ public class StatisticFragment extends Fragment {
                 });
             }
         });
-        Spinner spinner_dataformat=view.findViewById(R.id.spinner_dataformat);
+        Spinner spinner_dataformat = view.findViewById(R.id.spinner_dataformat);
+        spinner_dataformat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (spinner_dataformat.getSelectedItemPosition() == 0) {
+                    int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+                    int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+                    int currentWeek = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
+                    // Get the start and end days of the current week
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.YEAR, currentYear);
+
+
+                    calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek()); // Set to the first day of the week (usually Sunday)
+                    int startDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+                    calendar.add(Calendar.DATE, 6); // Move to the end of the week (usually Saturday)
+                    int endDay = calendar.get(Calendar.DAY_OF_MONTH);
+                    calorieBurnedList = calorieBurnedDao.getAllCalorieBurnedThisWeek(email, currentYear, currentMonth, startDay, endDay);
+
+                } else if (spinner_dataformat.getSelectedItemPosition() == 1) {
+                    int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+                    int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+                    calorieBurnedList = calorieBurnedDao.getAllCalorieBurnedThisMonth(email, currentYear, currentMonth);
+                } else if (spinner_dataformat.getSelectedItemPosition() == 2) {
+                    int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+                    calorieBurnedList = calorieBurnedDao.getAllCalorieBurnedThisYear(email, currentYear);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                ExecutorService executorService = Executors.newSingleThreadExecutor();
+                executorService.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        calorieBurnedList = calorieBurnedDao.getAllCalorieBurnedThisWeek();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                RecyclerView statistic_recyclerview = view.findViewById(R.id.statistic_recyclerview);
+                                statistic_recyclerview.setLayoutManager(new GridLayoutManager(view.getContext(), 3));
+                                statistic_recyclerview.setAdapter(new CalorieBurnedRecyclerAdapter(calorieBurnedList, view.getContext()));
+                            }
+                        });
+                    }
+                });
+            }
+        });
 
         // Inflate the layout for this fragment
         return view;
