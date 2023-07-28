@@ -103,7 +103,6 @@ public class StatisticFragment extends Fragment {
                     public void run() {
                         RecyclerView statistic_recyclerview = view.findViewById(R.id.statistic_recyclerview);
                         statistic_recyclerview.setLayoutManager(new GridLayoutManager(view.getContext(), 3));
-                        statistic_recyclerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
                         statistic_recyclerview.setAdapter(new CalorieBurnedRecyclerAdapter(calorieBurnedList, view.getContext()));
                     }
                 });
