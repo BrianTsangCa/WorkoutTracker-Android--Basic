@@ -35,8 +35,9 @@ public interface CalorieBurnedDao {
 
     @Query("SELECT workoutID, email, dateYear, dateMonth, dateDay, workoutCalorieBurned " +
             "FROM calorieBurned WHERE email=:email AND dateYear=:currentYear AND dateMonth=:currentMonth " +
-            "AND dateDay BETWEEN :startDay AND :endDay")
-    List<CalorieBurned> getAllCalorieBurnedThisWeek(String email, int currentYear, int currentMonth, int startDay, int endDay);
+            "AND ((dateDay >= :startDay AND dateDay <= :endDay) OR " +
+            "(dateDay >= :prevStartDay AND dateDay <= :prevEndDay))")
+    List<CalorieBurned> getAllCalorieBurnedLastWeek(String email, int currentYear, int currentMonth, int startDay, int endDay, int prevStartDay, int prevEndDay);
 
 
 }

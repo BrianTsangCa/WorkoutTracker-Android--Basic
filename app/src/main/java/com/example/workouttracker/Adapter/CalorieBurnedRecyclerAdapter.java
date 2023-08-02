@@ -48,14 +48,12 @@ public class CalorieBurnedRecyclerAdapter extends RecyclerView.Adapter<CalorieBu
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CalorieBurned calorieBurned = calorieBurnedList.get(position);
-        ArrayList<PieEntry> entriers = new ArrayList<>();
-
         float calorieBurned_value = calorieBurned.getWorkoutCalorieBurned();
         float target = 1000f;
         float percentage = calorieBurned_value / target * 100;
         holder.progressBar.setProgress((int) percentage);
         holder.txtView_date.setText(calorieBurned.getDateYear() + "/" + calorieBurned.getDateMonth() + "/" + calorieBurned.getDateDay());
-        holder.txtView_percentage.setText(percentage + "%");
+        holder.txtView_percentage.setText(calorieBurned_value + "");
     }
 
     @Override
