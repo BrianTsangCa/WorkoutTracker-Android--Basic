@@ -54,7 +54,6 @@ public class StatisticFragment extends Fragment {
     CalorieBurnedDao calorieBurnedDao;
     CalorieBurnedDatabase calorieBurnedDatabase;
     RecyclerView statistic_recyclerview;
-    int client_weight = 0;
 
     public StatisticFragment() {
         // Required empty public constructor

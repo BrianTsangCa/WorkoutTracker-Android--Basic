@@ -15,5 +15,7 @@ public interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertUser(User user);
 
+    @Query("SELECT email, userName, weightInPounds FROM users")
+    List<User> getAllUsers();
 
 }

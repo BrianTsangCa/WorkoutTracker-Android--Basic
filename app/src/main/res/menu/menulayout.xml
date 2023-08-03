@@ -9,9 +9,9 @@
         android:title="Workout"
         android:icon="@drawable/ic_workout" />
     <item
-        android:id="@+id/action_graph"
-        android:title="Graph"
-        android:icon="@drawable/ic_graph" />
+        android:id="@+id/action_rank"
+        android:icon="@drawable/ic_graph"
+        android:title="Rank" />
     <item
         android:id="@+id/action_statistic"
         android:title="Statistic"

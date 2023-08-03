@@ -86,10 +86,12 @@ public class LoginPageActivity extends AppCompatActivity {
     }
 
     public void fetchData() {
-        String _email = "cliff@gmail.com";
-        String _userName = "Cliff Wong";
-        String _weightInPounds = "170";
-        User newuser = new User(_email, _userName, Integer.parseInt(_weightInPounds));
+        String[] email = {"cliff@gmail.com", "ada@gmail.com", "bob@gmail.com"};
+        String[] userName = {"Cliff Wong", "Ada Wong", "Bob Wong"};
+        List<User> userList = new ArrayList<>();
+        for (int i = 0; i < email.length; i++) {
+            userList.add(new User(email[i], userName[i], 170));
+        }
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int lastMonth = calendar.get(Calendar.MONTH);
@@ -97,6 +99,7 @@ public class LoginPageActivity extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         List<CalorieBurned> calorieBurnedList = new ArrayList<>();
 
+        String _email = email[0];
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 1, 250));
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 2, 750));
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 3, 1250));
@@ -125,12 +128,73 @@ public class LoginPageActivity extends AppCompatActivity {
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 26, 750));
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 27, 1250));
         calorieBurnedList.add(new CalorieBurned(_email, year, currentMonth, day, 500));
+        _email = email[1];
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 1, 200));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 2, 700));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 3, 1000));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 4, 200));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 5, 700));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 6, 1000));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 7, 200));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 8, 700));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 9, 1000));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 10, 200));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 11, 700));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 12, 1000));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 13, 200));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 14, 700));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 15, 1000));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 16, 200));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 17, 700));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 18, 1000));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 19, 200));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 20, 700));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 21, 1000));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 22, 200));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 23, 700));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 24, 1000));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 25, 200));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 26, 700));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 27, 1000));
+        calorieBurnedList.add(new CalorieBurned(_email, year, currentMonth, day, 450));
+        _email = email[2];
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 1, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 2, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 3, 750));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 4, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 5, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 6, 750));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 7, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 8, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 9, 750));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 10, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 11, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 12, 750));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 13, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 14, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 15, 750));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 16, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 17, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 18, 750));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 19, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 20, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 21, 750));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 22, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 23, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 24, 750));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 25, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 26, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 27, 750));
+        calorieBurnedList.add(new CalorieBurned(_email, year, currentMonth, day, 250));
+
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                userDao.insertUser(newuser);
-                calorieBurnedDao.deleteAllCalorieBurned(_email);
+                for (int i = 0; i < userList.size(); i++) {
+                    userDao.insertUser(userList.get(i));
+                    calorieBurnedDao.deleteAllCalorieBurned(userList.get(i).getEmail());
+                }
                 for (int i = 0; i < calorieBurnedList.size(); i++) {
                     calorieBurnedDao.insertCalorieBurned(calorieBurnedList.get(i));
                 }

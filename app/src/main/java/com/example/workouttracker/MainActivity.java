@@ -5,15 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.workouttracker.fragment.GraphFragment;
+import com.example.workouttracker.fragment.RankFragment;
 import com.example.workouttracker.fragment.HomeFragment;
 import com.example.workouttracker.fragment.StatisticFragment;
 import com.example.workouttracker.fragment.WorkoutFragment;
@@ -40,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_workout:
                         replaceFragment(new WorkoutFragment());
                         break;
-                    case R.id.action_graph:
-                        replaceFragment(new GraphFragment());
+                    case R.id.action_rank:
+                        replaceFragment(new RankFragment());
                         break;
                     case R.id.action_statistic:
                         replaceFragment(new StatisticFragment());

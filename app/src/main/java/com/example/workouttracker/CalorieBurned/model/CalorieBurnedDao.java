@@ -39,5 +39,6 @@ public interface CalorieBurnedDao {
             "(dateDay >= :prevStartDay AND dateDay <= :prevEndDay))")
     List<CalorieBurned> getAllCalorieBurnedLastWeek(String email, int currentYear, int currentMonth, int startDay, int endDay, int prevStartDay, int prevEndDay);
 
-
+    @Query("SELECT sum(workoutCalorieBurned) FROM calorieBurned WHERE email=:email")
+    int getTotalCalorieBurned(String email);
 }
