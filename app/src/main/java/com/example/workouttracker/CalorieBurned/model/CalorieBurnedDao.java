@@ -41,4 +41,7 @@ public interface CalorieBurnedDao {
 
     @Query("SELECT sum(workoutCalorieBurned) FROM calorieBurned WHERE email=:email")
     int getTotalCalorieBurned(String email);
+
+    @Query("SELECT sum(workoutCalorieBurned) FROM calorieBurned WHERE email=:email AND dateYear=:year AND dateMonth=:month")
+    int getTotalCalorieBurnedForMonth(String email, int year, int month);
 }

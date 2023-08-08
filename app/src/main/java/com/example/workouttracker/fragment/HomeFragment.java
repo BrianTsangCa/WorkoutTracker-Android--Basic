@@ -1,5 +1,6 @@
 package com.example.workouttracker.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,10 +19,21 @@ import com.example.workouttracker.database.CalorieBurnedDatabase;
 import com.example.workouttracker.database.UserDatabase;
 import com.example.workouttracker.user.model.User;
 import com.example.workouttracker.user.model.UserDao;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -47,6 +59,7 @@ public class HomeFragment extends Fragment {
     UserDatabase userDatabase;
     CalorieBurnedDao calorieBurnedDao;
     CalorieBurnedDatabase calorieBurnedDatabase;
+    List<BarEntry> entries = new ArrayList<>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -85,6 +98,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         // Inflate the layout for this fragment
         TextView home_intro = view.findViewById(R.id.home_intro);
+        BarChart chart = view.findViewById(R.id.chart);
         firebaseAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         userDatabase = Room.databaseBuilder
@@ -116,10 +130,28 @@ public class HomeFragment extends Fragment {
             @Override
             public void run() {
                 int calorie = calorieBurnedDao.GetAllCalorieBurnedToday(email, year, month, day);
+                for (int i = 0; i < month; i++) {
+                    entries.add(new BarEntry(i, calorieBurnedDao.getTotalCalorieBurnedForMonth(email, year, i + 1)));
+                }
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         home_intro.setText(home_intro.getText() + " " + calorie + " calorie is burned today!");
+                        BarDataSet dataSet = new BarDataSet(entries, "Calorie Burned");
+                        dataSet.setValueTextColor(Color.WHITE);
+                        dataSet.setColor(Color.GRAY);
+
+                        BarData barData = new BarData(dataSet);
+                        chart.setData(barData);
+
+                        // Customize chart settings if needed
+                        Description description = new Description();
+                        description.setText("Monthly Calorie Burned");
+                        description.setTextColor(Color.WHITE);
+                        chart.setDescription(description);
+                        chart.setTouchEnabled(true);
+                        chart.setDragEnabled(true);
+                        chart.setScaleEnabled(true);
                     }
                 });
             }
