@@ -7,13 +7,9 @@ import androidx.room.PrimaryKey;
 
 import java.text.DateFormat;
 
-@Entity(tableName = "calorieBurned")
+@Entity(tableName = "calorieBurned", primaryKeys = {"email", "dateYear", "dateMonth", "dateDay"})
 public class CalorieBurned {
 
-    @NonNull
-    @ColumnInfo(name = "workoutID")
-    @PrimaryKey(autoGenerate = true)
-    int workoutID;
     @NonNull
     @ColumnInfo(name = "email")
     String email;
@@ -76,13 +72,6 @@ public class CalorieBurned {
         this.dateDay = dateDay;
     }
 
-    public int getWorkoutID() {
-        return workoutID;
-    }
-
-    public void setWorkoutID(int workoutID) {
-        this.workoutID = workoutID;
-    }
 
     public int getWorkoutCalorieBurned() {
         return workoutCalorieBurned;

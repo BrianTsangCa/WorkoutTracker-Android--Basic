@@ -132,7 +132,8 @@ public class HomeFragment extends Fragment {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                int calorie = calorieBurnedDao.GetAllCalorieBurnedToday(email, year, month, day);
+                CalorieBurned calorieBurned = calorieBurnedDao.GetAllCalorieBurnedToday(email, year, month, day);
+                int calorie = calorieBurned.getWorkoutCalorieBurned();
                 double averageLastMonth = calorieBurnedDao.getAverageCaloriesBurnedLastMonth(email, year, month - 1);
                 for (int i = 0; i < month; i++) {
                     entries.add(new BarEntry(i, calorieBurnedDao.getTotalCalorieBurnedForMonth(email, year, i + 1)));

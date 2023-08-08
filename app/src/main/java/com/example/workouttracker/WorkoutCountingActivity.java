@@ -95,13 +95,13 @@ public class WorkoutCountingActivity extends AppCompatActivity {
                     int year = calendar.get(Calendar.YEAR);
                     int month = calendar.get(Calendar.MONTH) + 1;
                     int day = calendar.get(Calendar.DAY_OF_MONTH);
-                    // missing existing calorie
-                    CalorieBurned calorieBurnedData = new CalorieBurned(email, year, month, day, calories_per_hour * second / 60 / 60);
                     ExecutorService executorService = Executors.newSingleThreadExecutor();
                     executorService.execute(new Runnable() {
                         @Override
                         public void run() {
-                            calorieBurnedDao.insertCalorieBurned(calorieBurnedData);
+                            CalorieBurned calorieBurnedData_original = calorieBurnedDao.GetAllCalorieBurnedToday(email, year, month, day);
+                            calorieBurnedData_original.setWorkoutCalorieBurned(calorieBurnedData_original.getWorkoutCalorieBurned() + calories_per_hour * second / 60 / 60);
+                            calorieBurnedDao.insertCalorieBurned(calorieBurnedData_original);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -111,7 +111,7 @@ public class WorkoutCountingActivity extends AppCompatActivity {
                         }
                     });
                     second = 0;
-                    Toast.makeText(WorkoutCountingActivity.this, "Calorie Burned Data -(" + calorieBurnedData.getWorkoutCalorieBurned() + " ) is Created!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(WorkoutCountingActivity.this, "Calorie Burned Data -(" + calories_per_hour * second / 60 / 60 + " ) is Created!", Toast.LENGTH_LONG).show();
                     startActivity(intent);
                 }
             }

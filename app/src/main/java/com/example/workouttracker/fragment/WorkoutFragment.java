@@ -179,7 +179,7 @@ public class WorkoutFragment extends Fragment {
         };
         // Make the API call using JsonArrayRequest
         String url2 = "https://calories-burned-by-api-ninjas.p.rapidapi.com/v1/caloriesburned?activity=cycling&weight=" + client_weight;
-        JsonArrayRequest jsonArrayRequest2 = new JsonArrayRequest(Request.Method.GET, url, null,
+        JsonArrayRequest jsonArrayRequest2 = new JsonArrayRequest(Request.Method.GET, url2, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -228,7 +228,7 @@ public class WorkoutFragment extends Fragment {
         };
         // Make the API call using JsonArrayRequest
         String url3 = "https://calories-burned-by-api-ninjas.p.rapidapi.com/v1/caloriesburned?activity=aerobics&weight=" + client_weight;
-        JsonArrayRequest jsonArrayRequest3 = new JsonArrayRequest(Request.Method.GET, url, null,
+        JsonArrayRequest jsonArrayRequest3 = new JsonArrayRequest(Request.Method.GET, url3, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
