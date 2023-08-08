@@ -127,5 +127,4 @@ public class HomeFragment extends Fragment {
         Toast.makeText(view.getContext(), "email is " + email, Toast.LENGTH_SHORT).show();
         return view;
     }
-
 }

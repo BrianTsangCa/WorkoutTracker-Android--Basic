@@ -92,7 +92,7 @@ public class RankFragment extends Fragment {
         userDatabase = Room.databaseBuilder
                 (view.getContext(), UserDatabase.class, "user.db").build();
         userDao = userDatabase.userDao();
-        rank_recyclerview = view.findViewById(R.id.rank_recyclerview);
+        rank_recyclerview = view.findViewById(R.id.home_recyclerview);
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
             @Override
@@ -112,7 +112,7 @@ public class RankFragment extends Fragment {
                                 yourPosition = i;
                             }
                         }
-                        RecyclerView rank_recyclerview = view.findViewById(R.id.rank_recyclerview);
+                        RecyclerView rank_recyclerview = view.findViewById(R.id.home_recyclerview);
                         rank_recyclerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
                         rank_recyclerview.setAdapter(new RankRecyclerAdapter(AllUser, calorieBurnedList, view.getContext(), yourPosition));
                     }
