@@ -44,4 +44,12 @@ public interface CalorieBurnedDao {
 
     @Query("SELECT sum(workoutCalorieBurned) FROM calorieBurned WHERE email=:email AND dateYear=:year AND dateMonth=:month")
     int getTotalCalorieBurnedForMonth(String email, int year, int month);
+
+    @Query("DELETE FROM calorieBurned")
+    public abstract void deleteAll();
+
+    @Query("SELECT AVG(workoutCalorieBurned) FROM calorieBurned " +
+            "WHERE email=:email AND dateYear=:lastMonthYear AND dateMonth=:lastMonth")
+    double getAverageCaloriesBurnedLastMonth(String email, int lastMonthYear, int lastMonth);
+
 }

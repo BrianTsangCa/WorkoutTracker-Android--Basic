@@ -1,9 +1,6 @@
 package com.example.workouttracker.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workouttracker.CalorieBurned.model.CalorieBurned;
 import com.example.workouttracker.R;
-import com.example.workouttracker.WorkoutCountingActivity;
-import com.example.workouttracker.workout.model.Workout;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class CalorieBurnedRecyclerAdapter extends RecyclerView.Adapter<CalorieBurnedRecyclerAdapter.ViewHolder> {
@@ -68,7 +55,7 @@ public class CalorieBurnedRecyclerAdapter extends RecyclerView.Adapter<CalorieBu
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             progressBar = itemView.findViewById(R.id.progressBar);
-            txtView_percentage = itemView.findViewById(R.id.txtView_percentage);
+            txtView_percentage = itemView.findViewById(R.id.txtView_calorieBurnedThatDay);
             txtView_date = itemView.findViewById(R.id.txtView_date);
         }
     }

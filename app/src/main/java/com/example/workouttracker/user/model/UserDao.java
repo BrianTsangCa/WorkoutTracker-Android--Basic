@@ -18,4 +18,6 @@ public interface UserDao {
     @Query("SELECT email, userName, weightInPounds FROM users")
     List<User> getAllUsers();
 
+    @Query("DELETE FROM users")
+    void deleteAllUsers();
 }

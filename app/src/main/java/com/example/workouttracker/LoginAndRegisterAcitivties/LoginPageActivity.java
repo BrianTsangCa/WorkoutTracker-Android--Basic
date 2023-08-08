@@ -86,8 +86,8 @@ public class LoginPageActivity extends AppCompatActivity {
     }
 
     public void fetchData() {
-        String[] email = {"cliff@gmail.com", "ada@gmail.com", "bob@gmail.com"};
-        String[] userName = {"Cliff Wong", "Ada Wong", "Bob Wong"};
+        String[] email = {"cliff@gmail.com", "ada@gmail.com", "bob@gmail.com", "david@gmail.com", "eric@gmail.com"};
+        String[] userName = {"Cliff Wong", "Ada Wong", "Bob Wong", "David Wong", "Eric Wong"};
         List<User> userList = new ArrayList<>();
         for (int i = 0; i < email.length; i++) {
             userList.add(new User(email[i], userName[i], 170));
@@ -183,7 +183,10 @@ public class LoginPageActivity extends AppCompatActivity {
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 25, 250));
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 26, 750));
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 27, 1250));
-        calorieBurnedList.add(new CalorieBurned(_email, year, currentMonth, day, 500));
+        for (int i = 1; i <= day; i++) {
+            calorieBurnedList.add(new CalorieBurned(_email, year, currentMonth, i, 500));
+        }
+
         _email = email[1];
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 1, 200));
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 2, 700));
@@ -212,7 +215,9 @@ public class LoginPageActivity extends AppCompatActivity {
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 25, 200));
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 26, 700));
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 27, 1000));
-        calorieBurnedList.add(new CalorieBurned(_email, year, currentMonth, day, 450));
+        for (int i = 1; i <= day; i++) {
+            calorieBurnedList.add(new CalorieBurned(_email, year, currentMonth, i, 450));
+        }
         _email = email[2];
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 1, 100));
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 2, 500));
@@ -241,8 +246,71 @@ public class LoginPageActivity extends AppCompatActivity {
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 25, 100));
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 26, 500));
         calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 27, 750));
-        calorieBurnedList.add(new CalorieBurned(_email, year, currentMonth, day, 250));
-
+        for (int i = 1; i <= day; i++) {
+            calorieBurnedList.add(new CalorieBurned(_email, year, currentMonth, i, 250));
+        }
+        _email = email[3];
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 1, 50));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 2, 50));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 3, 50));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 4, 50));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 5, 50));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 6, 50));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 7, 50));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 8, 50));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 9, 50));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 10, 50));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 11, 50));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 12, 50));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 13, 50));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 14, 50));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 15, 75));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 16, 75));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 17, 75));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 18, 75));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 19, 75));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 20, 75));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 21, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 22, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 23, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 24, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 25, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 26, 1000));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 27, 100));
+        for (int i = 1; i <= day; i++) {
+            calorieBurnedList.add(new CalorieBurned(_email, year, currentMonth, i, 1000));
+        }
+        _email = email[4];
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 1, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 2, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 3, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 4, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 5, 100));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 6, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 7, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 8, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 9, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 10, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 11, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 12, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 13, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 14, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 15, 750));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 16, 750));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 17, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 18, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 19, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 20, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 21, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 22, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 23, 1000));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 24, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 25, 500));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 26, 1000));
+        calorieBurnedList.add(new CalorieBurned(_email, year, lastMonth, 27, 500));
+        for (int i = 1; i <= day; i++) {
+            calorieBurnedList.add(new CalorieBurned(_email, year, currentMonth, i, 1250));
+        }
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
             @Override

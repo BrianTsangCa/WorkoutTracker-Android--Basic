@@ -19,7 +19,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/txtView_percentage"
+            android:id="@+id/txtView_calorieBurnedThatDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"

@@ -120,14 +120,15 @@ public class StatisticFragment extends Fragment {
                     @Override
                     public void run() {
                         if (spinner_dataformat.getSelectedItemPosition() == 0) {
-                            getDataFromLastWeek(email);
+                            int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+                            calorieBurnedList = calorieBurnedDao.getAllCalorieBurnedThisYear(email, currentYear);
                         } else if (spinner_dataformat.getSelectedItemPosition() == 1) {
                             int currentYear = Calendar.getInstance().get(Calendar.YEAR);
                             int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
                             calorieBurnedList = calorieBurnedDao.getAllCalorieBurnedThisMonth(email, currentYear, currentMonth);
                         } else if (spinner_dataformat.getSelectedItemPosition() == 2) {
-                            int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-                            calorieBurnedList = calorieBurnedDao.getAllCalorieBurnedThisYear(email, currentYear);
+
+                            getDataFromLastWeek(email);
                         }
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -138,6 +139,7 @@ public class StatisticFragment extends Fragment {
                     }
                 });
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 ExecutorService executorService = Executors.newSingleThreadExecutor();

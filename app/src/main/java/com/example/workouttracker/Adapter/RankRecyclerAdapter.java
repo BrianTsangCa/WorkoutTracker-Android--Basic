@@ -43,19 +43,19 @@ public class RankRecyclerAdapter extends RecyclerView.Adapter<RankRecyclerAdapte
 
         holder.txtView_userName.setText(AllUser.get(position).getUserName());
         holder.txtView_calorieBurned.setText(calorieBurnedList.get(position) + "");
-        if (position == 0) {
-            holder.txtView_rank.setBackground(new ColorDrawable(0xFFFFD700));
-            holder.txtView_userName.setBackground(new ColorDrawable(0xFFFFD700));
-            holder.txtView_calorieBurned.setBackground(new ColorDrawable(0xFFFFD700));
-        } else if (position == 1) {
-            holder.txtView_rank.setBackground(new ColorDrawable(0xFFC0C0C0));
-            holder.txtView_userName.setBackground(new ColorDrawable(0xFFC0C0C0));
-            holder.txtView_calorieBurned.setBackground(new ColorDrawable(0xFFC0C0C0));
-        } else if (position == 2) {
-            holder.txtView_rank.setBackground(new ColorDrawable(0xFFCD7F32));
-            holder.txtView_userName.setBackground(new ColorDrawable(0xFFCD7F32));
-            holder.txtView_calorieBurned.setBackground(new ColorDrawable(0xFFCD7F32));
-        }
+//        if (position == 0) {
+//            holder.txtView_rank.setBackground(new ColorDrawable(0xFFFFD700));
+//            holder.txtView_userName.setBackground(new ColorDrawable(0xFFFFD700));
+//            holder.txtView_calorieBurned.setBackground(new ColorDrawable(0xFFFFD700));
+//        } else if (position == 1) {
+//            holder.txtView_rank.setBackground(new ColorDrawable(0xFFC0C0C0));
+//            holder.txtView_userName.setBackground(new ColorDrawable(0xFFC0C0C0));
+//            holder.txtView_calorieBurned.setBackground(new ColorDrawable(0xFFC0C0C0));
+//        } else if (position == 2) {
+//            holder.txtView_rank.setBackground(new ColorDrawable(0xFFCD7F32));
+//            holder.txtView_userName.setBackground(new ColorDrawable(0xFFCD7F32));
+//            holder.txtView_calorieBurned.setBackground(new ColorDrawable(0xFFCD7F32));
+//        }
 
         if (position == yourPosition) {
             holder.txtView_rank.setText("*" + (position + 1) + "");

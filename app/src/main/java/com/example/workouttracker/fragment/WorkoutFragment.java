@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -58,11 +60,13 @@ public class WorkoutFragment extends Fragment {
     private String mParam2;
     private RequestQueue requestQueue;
     List<Workout> WorkOutList = new ArrayList<>();
+    List<Workout> WorkOutListSorted = new ArrayList<>();
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     UserDao userDao;
     UserDatabase userDatabase;
     int client_weight = 0;
+    RadioGroup radioGroup_sort;
 
 
     public WorkoutFragment() {
@@ -100,7 +104,7 @@ public class WorkoutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_workout, container, false);
-
+        radioGroup_sort = view.findViewById(R.id.radioGroup_sort);
         firebaseAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         userDatabase = Room.databaseBuilder
@@ -250,7 +254,25 @@ public class WorkoutFragment extends Fragment {
                         }
                         RecyclerView workout_recyclerview = view.findViewById(R.id.workout_recyclerview);
                         workout_recyclerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
-                        workout_recyclerview.setAdapter(new WorkoutRecyclerAdapter(WorkOutList, view.getContext()));
+                        radioGroup_sort.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                                switch (checkedId) {
+                                    case R.id.radiobtn_calorie:
+                                        WorkOutListSorted = WorkOutList;
+                                        MergeSort(WorkOutListSorted, 0, WorkOutList.size() - 1);
+                                        workout_recyclerview.setAdapter(new WorkoutRecyclerAdapter(WorkOutListSorted, view.getContext()));
+                                        break;
+                                    case R.id.radiobtn_category:
+                                        WorkOutListSorted = WorkOutList;
+                                        MergeSortByCategory(WorkOutList, 0, WorkOutList.size() - 1);
+                                        workout_recyclerview.setAdapter(new WorkoutRecyclerAdapter(WorkOutListSorted, view.getContext()));
+                                        break;
+                                }
+                            }
+                        });
+                        WorkOutListSorted = WorkOutList;
+                        workout_recyclerview.setAdapter(new WorkoutRecyclerAdapter(WorkOutListSorted, view.getContext()));
                     }
                 },
                 new Response.ErrorListener() {
@@ -280,5 +302,97 @@ public class WorkoutFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
 
+    }
+
+    public static void MergeSort(List<Workout> workoutList, int first, int last) {
+        if (first < last) {
+            int mid = (first + last) / 2;
+            MergeSort(workoutList, first, mid);
+            MergeSort(workoutList, mid + 1, last);
+            merge(workoutList, first, mid, last);
+        }
+    }
+
+    public static void merge(List<Workout> workoutList, int first, int mid, int last) {
+        List<Workout> tempWorkoutList = new ArrayList<>();
+
+        // Rest of your merge code...
+
+        int beginHalf1 = first;
+        int endHalf1 = mid;
+        int beginHalf2 = mid + 1;
+        int endHalf2 = last;
+
+        while (beginHalf1 <= endHalf1 && beginHalf2 <= endHalf2) {
+            int calorie1 = Integer.parseInt(workoutList.get(beginHalf1).getCalories_per_hour());
+            int calorie2 = Integer.parseInt(workoutList.get(beginHalf2).getCalories_per_hour());
+
+            if (calorie1 <= calorie2) {
+                tempWorkoutList.add(workoutList.get(beginHalf1));
+                beginHalf1++;
+            } else {
+                tempWorkoutList.add(workoutList.get(beginHalf2));
+                beginHalf2++;
+            }
+        }
+
+        while (beginHalf1 <= endHalf1) {
+            tempWorkoutList.add(workoutList.get(beginHalf1));
+            beginHalf1++;
+        }
+
+        while (beginHalf2 <= endHalf2) {
+            tempWorkoutList.add(workoutList.get(beginHalf2));
+            beginHalf2++;
+        }
+
+        for (int i = 0; i < tempWorkoutList.size(); i++) {
+            workoutList.set(first + i, tempWorkoutList.get(i));
+        }
+    }
+
+    public static void MergeSortByCategory(List<Workout> workoutList, int first, int last) {
+        if (first < last) {
+            int mid = (first + last) / 2;
+            MergeSortByCategory(workoutList, first, mid);
+            MergeSortByCategory(workoutList, mid + 1, last);
+            mergeByCategory(workoutList, first, mid, last);
+        }
+    }
+
+    public static void mergeByCategory(List<Workout> workoutList, int first, int mid, int last) {
+        List<Workout> tempWorkoutList = new ArrayList<>();
+
+        int beginHalf1 = first;
+        int endHalf1 = mid;
+        int beginHalf2 = mid + 1;
+        int endHalf2 = last;
+
+        while (beginHalf1 <= endHalf1 && beginHalf2 <= endHalf2) {
+            String category1 = workoutList.get(beginHalf1).getCategory();
+            String category2 = workoutList.get(beginHalf2).getCategory();
+
+            if (category1.compareTo(category2) <= 0) {
+                tempWorkoutList.add(workoutList.get(beginHalf1));
+                beginHalf1++;
+            } else {
+                tempWorkoutList.add(workoutList.get(beginHalf2));
+                beginHalf2++;
+            }
+        }
+
+        while (beginHalf1 <= endHalf1) {
+            tempWorkoutList.add(workoutList.get(beginHalf1));
+            beginHalf1++;
+        }
+
+        while (beginHalf2 <= endHalf2) {
+            tempWorkoutList.add(workoutList.get(beginHalf2));
+            beginHalf2++;
+        }
+
+        for (int i = 0; i < tempWorkoutList.size(); i++) {
+            workoutList.set(first + i, tempWorkoutList.get(i));
+        }
     }
 }

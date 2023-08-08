@@ -133,6 +133,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void run() {
                 int calorie = calorieBurnedDao.GetAllCalorieBurnedToday(email, year, month, day);
+                double averageLastMonth = calorieBurnedDao.getAverageCaloriesBurnedLastMonth(email, year, month - 1);
                 for (int i = 0; i < month; i++) {
                     entries.add(new BarEntry(i, calorieBurnedDao.getTotalCalorieBurnedForMonth(email, year, i + 1)));
                 }
@@ -141,17 +142,21 @@ public class HomeFragment extends Fragment {
                     public void run() {
                         home_intro.setText(home_intro.getText() + " " + calorie + " calorie is burned today!");
                         BarDataSet dataSet = new BarDataSet(entries, "Calorie Burned");
-                        dataSet.setColor(Color.GRAY);
+                        dataSet.setColor(Color.GREEN);
 
                         BarData barData = new BarData(dataSet);
                         chart.setData(barData);
                         // Customize chart settings if needed
-                        Description description = new Description();
-                        chart.setDescription(description);
                         chart.setTouchEnabled(true);
                         chart.setDragEnabled(true);
                         chart.setScaleEnabled(true);
                         txt_graphTitle.setText("Monthly Calorie Burned");
+                        if (calorie >= averageLastMonth) {
+                            home_intro.setText(home_intro.getText() + " Congratulations! You've exceeded last month's average calorie burn. Keep up the good work!");
+                        } else {
+                            int remainingCalories = (int) averageLastMonth - calorie;
+                            home_intro.setText(home_intro.getText() + " You're close to achieving last month's average. The average for last month was " + averageLastMonth + " calories, and you need " + remainingCalories + " more calories to reach that goal.");
+                        }
                     }
                 });
             }
