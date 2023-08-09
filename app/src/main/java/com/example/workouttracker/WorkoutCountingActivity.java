@@ -40,6 +40,7 @@ public class WorkoutCountingActivity extends AppCompatActivity {
     CalorieBurnedDatabase calorieBurnedDatabase;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
+    CalorieBurned calorieBurnedData_original;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +49,7 @@ public class WorkoutCountingActivity extends AppCompatActivity {
         txtView_name = findViewById(R.id.txtView_name);
         txtView_time = findViewById(R.id.txtView_time);
         btn_start_stop = findViewById(R.id.btn_start_stop);
-        calorieBurnedDatabase = Room.databaseBuilder
-                (getApplicationContext(), CalorieBurnedDatabase.class, "calorieBurned.db").build();
+        calorieBurnedDatabase = Room.databaseBuilder(getApplicationContext(), CalorieBurnedDatabase.class, "calorieBurned.db").build();
         calorieBurnedDao = calorieBurnedDatabase.calorieBurnedDao();
         firebaseAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -99,9 +99,14 @@ public class WorkoutCountingActivity extends AppCompatActivity {
                     executorService.execute(new Runnable() {
                         @Override
                         public void run() {
-                            CalorieBurned calorieBurnedData_original = calorieBurnedDao.GetAllCalorieBurnedToday(email, year, month, day);
-                            calorieBurnedData_original.setWorkoutCalorieBurned(calorieBurnedData_original.getWorkoutCalorieBurned() + calories_per_hour * second / 60 / 60);
-                            calorieBurnedDao.insertCalorieBurned(calorieBurnedData_original);
+                            calorieBurnedData_original = calorieBurnedDao.GetAllCalorieBurnedToday(email, year, month, day);
+                            if (calorieBurnedData_original == null) {
+                                CalorieBurned newCalorieBurned = new CalorieBurned(email, year, month, day, calories_per_hour * second / 60 / 60);
+                                calorieBurnedDao.insertCalorieBurned(newCalorieBurned);
+                            } else {
+                                calorieBurnedData_original.setWorkoutCalorieBurned(calorieBurnedData_original.getWorkoutCalorieBurned() + calories_per_hour * second / 60 / 60);
+                                calorieBurnedDao.insertCalorieBurned(calorieBurnedData_original);
+                            }
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -110,8 +115,9 @@ public class WorkoutCountingActivity extends AppCompatActivity {
                             });
                         }
                     });
-                    second = 0;
+
                     Toast.makeText(WorkoutCountingActivity.this, "Calorie Burned Data -(" + calories_per_hour * second / 60 / 60 + " ) is Created!", Toast.LENGTH_LONG).show();
+                    second = 0;
                     startActivity(intent);
                 }
             }

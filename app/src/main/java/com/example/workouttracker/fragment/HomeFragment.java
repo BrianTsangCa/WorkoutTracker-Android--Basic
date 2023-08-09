@@ -133,11 +133,17 @@ public class HomeFragment extends Fragment {
             @Override
             public void run() {
                 CalorieBurned calorieBurned = calorieBurnedDao.GetAllCalorieBurnedToday(email, year, month, day);
-                int calorie = calorieBurned.getWorkoutCalorieBurned();
+                int calorie;
+                if (calorieBurned == null) {
+                    calorie = 0;
+                } else {
+                    calorie = calorieBurned.getWorkoutCalorieBurned();
+                }
                 double averageLastMonth = calorieBurnedDao.getAverageCaloriesBurnedLastMonth(email, year, month - 1);
                 for (int i = 0; i < month; i++) {
                     entries.add(new BarEntry(i, calorieBurnedDao.getTotalCalorieBurnedForMonth(email, year, i + 1)));
                 }
+                int totalCalorie = calorieBurnedDao.getTotalCalorieBurned(email);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -152,7 +158,9 @@ public class HomeFragment extends Fragment {
                         chart.setDragEnabled(true);
                         chart.setScaleEnabled(true);
                         txt_graphTitle.setText("Monthly Calorie Burned");
-                        if (calorie >= averageLastMonth) {
+                        if (totalCalorie == 0) {
+                            home_intro.setText(home_intro.getText() + " \nLet's try your first workout!");
+                        } else if (calorie >= averageLastMonth) {
                             home_intro.setText(home_intro.getText() + " Congratulations! You've exceeded last month's average calorie burn. Keep up the good work!");
                         } else {
                             int remainingCalories = (int) averageLastMonth - calorie;

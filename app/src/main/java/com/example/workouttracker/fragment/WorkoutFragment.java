@@ -58,7 +58,6 @@ public class WorkoutFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private RequestQueue requestQueue;
     List<Workout> WorkOutList = new ArrayList<>();
     List<Workout> WorkOutListSorted = new ArrayList<>();
     FirebaseAuth firebaseAuth;

@@ -22,6 +22,7 @@ public interface CalorieBurnedDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertCalorieBurned(CalorieBurned calorieBurned);
 
+
     @Query("DELETE FROM calorieBurned WHERE email=:email")
     void deleteAllCalorieBurned(String email);
 

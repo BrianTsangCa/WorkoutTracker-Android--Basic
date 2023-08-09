@@ -6,6 +6,7 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,8 +54,25 @@ public class RegisterPageActivity extends AppCompatActivity {
                 String _password = editText_password.getText().toString();
                 String _userName = editText_username.getText().toString();
                 String _weightInPounds = editText_weight.getText().toString();
+                if(_email.isEmpty()){
+                    Toast.makeText(RegisterPageActivity.this, "Please enter email", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(_password.isEmpty()){
+                    Toast.makeText(RegisterPageActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(_userName.isEmpty()){
+                    Toast.makeText(RegisterPageActivity.this, "Please enter user name", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(_weightInPounds.isEmpty()){
+                    Toast.makeText(RegisterPageActivity.this, "Please enter weight", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (Integer.parseInt(_weightInPounds) < 50 || Integer.parseInt(_weightInPounds) > 500) {
                     Toast.makeText(RegisterPageActivity.this, "Weight must be between 50 and 500", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!Patterns.EMAIL_ADDRESS.matcher(_email).matches()){
+                    Toast.makeText(RegisterPageActivity.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 try {
